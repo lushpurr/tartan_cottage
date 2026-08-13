@@ -1,3 +1,87 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+
+@theme {
+  --color-green: #1C3828;
+  --color-gold: #C8A247;
+  --color-cream: #F8F4EA;
+  --color-black: #222222;
+}
+
+:root {
+  background-color: var(--color-cream);
+  color: var(--color-black);
+
+  /* Bodoni 72 — probably the closest overall; elegant, high contrast, dramatic thin/thick strokes.
+Baskerville — slightly softer and more traditional, but very close in overall character.
+Libre Baskerville — free and widely available, with a similar classic feel.
+Cormorant Garamond — more decorative and elegant; good if you want the cottage/heritage character. */
+font-family: 'Baskerville', 'Libre Baskerville', serif;}
+
+.tartan {
+  background-color: #f8f4ea;
+
+  background-image:
+    /* Fine gold threads */
+    linear-gradient(
+      90deg,
+      transparent 0 11px,
+      #c8a247 11px 12px,
+      transparent 12px 23px
+    ),
+    linear-gradient(
+      0deg,
+      transparent 0 11px,
+      #c8a247 11px 12px,
+      transparent 12px 23px
+    ),
+
+    /* Deep green bands */
+    linear-gradient(
+      90deg,
+      transparent 0 3px,
+      #1c3828 3px 7px,
+      transparent 7px 19px
+    ),
+    linear-gradient(
+      0deg,
+      transparent 0 3px,
+      #1c3828 3px 7px,
+      transparent 7px 19px
+    ),
+
+    /* Navy bands */
+    linear-gradient(
+      90deg,
+      transparent 0 17px,
+      #102b3d 17px 20px,
+      transparent 20px 24px
+    ),
+    linear-gradient(
+      0deg,
+      transparent 0 17px,
+      #102b3d 17px 20px,
+      transparent 20px 24px
+    ),
+
+    /* Subtle lighter green weave */
+    linear-gradient(
+      90deg,
+      transparent 0 7px,
+      #58766b 7px 10px,
+      transparent 10px 24px
+    ),
+    linear-gradient(
+      0deg,
+      transparent 0 7px,
+      #58766b 7px 10px,
+      transparent 10px 24px
+    );
+
+  background-size: 24px 24px;
+
+    border-top: 2px solid var(--color-green);
+  border-bottom: 2px solid var(--color-green);
+}
