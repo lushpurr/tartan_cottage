@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
@@ -32,10 +32,16 @@ jobs:
       - name: Build Angular app
         run: npm run build -- --configuration production --base-href /tartan_cottage/
 
+      - name: Add 404 fallback (optional)
+        run: |
+          if [ -d ./dist/tartan-cottage ]; then
+            cp ./dist/tartan-cottage/index.html ./dist/tartan-cottage/404.html || true
+          fi
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/tartan-cottage/browser
+          path: ./dist/tartan-cottage
 
   deploy:
     environment:
