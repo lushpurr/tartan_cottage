@@ -41,10 +41,17 @@ jobs:
         run: |
           cp ./dist/tartan-cottage/browser/index.html ./dist/tartan-cottage/browser/404.html
 
+      - name: Show built files (debug)
+        run: |
+          echo "Contents of dist/tartan-cottage/browser:"
+          ls -la ./dist/tartan-cottage/browser || true
+          echo "Tree:"
+          find ./dist/tartan-cottage/browser -maxdepth 2 -type f -print || true
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/tartan-cottage
+          path: ./dist/tartan-cottage/browser
 
   deploy:
     environment:
