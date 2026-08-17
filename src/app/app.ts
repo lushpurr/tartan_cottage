@@ -12,9 +12,9 @@ export class App {
   protected readonly title = signal('tartan-cottage');
 
   contactData = signal({
-    name: 'Gavin Will',
-    email: 'email@email.com',
-    message: 'Hello, I would like to get in touch with you.'
+    name: '',
+    email: '',
+    message: ''
   });
 
   showForm = signal(false);
