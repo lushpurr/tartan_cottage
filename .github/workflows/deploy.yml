@@ -35,8 +35,8 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Build Angular app
-        run: npm run build -- --configuration production --base-href /tartan_cottage/
-
+        run: npm run build -- --configuration production --base-href /
+        
       - name: Add 404 fallback
         run: |
           cp ./dist/tartan-cottage/browser/index.html ./dist/tartan-cottage/browser/404.html
