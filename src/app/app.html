@@ -1,15 +1,79 @@
 <div class="fixed h-9 top-0 w-full tartan opacity-80"></div>
 
-<div class="flex w-full justify-center items-center min-h-screen">
-<div class="flex w-fit m-4 justify-center rounded-t-full rounded-b-lg p-1 border  border-gold">
-  <div class="flex gap-6 rounded-t-full rounded-b-lg justify-center border w-full border-green">
-    <div class="flex flex-col gap-6 pb-6">
-      <img width="256" src="assets/logo.png" alt="Tartan Cottage Logo" />
-      <h2 class="text-2xl italic self-center">Coming Soon</h2>
+<div class="page-shell" [class.form-open]="showForm()">
+  <div class="brand-panel" [class.enquiry-open]="showForm()">
+    <div class="brand-inner">
+      <img class="brand-logo" src="assets/logo.png" alt="Tartan Cottage Logo" />
+      <h2 class="brand-title">Full site coming soon</h2>
     </div>
   </div>
-</div>
 
+  <div class="enquiries-wrapper" [class.enquiry-open]="showForm()">
+    <button class="enquiries-button" (click)="toggleForm()" [class.enquiry-open]="showForm()">
+      Enquiries
+    </button>
+
+    <div class="enquiry-panel" [class.visible]="showForm()">
+
+      @if(showForm()){
+            <div class="enquiry-card">
+        <div class="enquiry-body">
+          <h3 class="text-xl font-semibold">Get in Touch</h3>
+
+          <div class="flex flex-col gap-2">
+            <label for="name" class="text-sm">Name</label>
+            <input
+              type="text"
+              id="name"
+              [(ngModel)]="contactData().name"
+              placeholder="Your name"
+              class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green focus:ring-1 focus:ring-green"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="email" class="text-sm">Email</label>
+            <input
+              type="email"
+              id="email"
+              [(ngModel)]="contactData().email"
+              placeholder="your@email.com"
+              class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green focus:ring-1 focus:ring-green"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="message" class="text-sm">Message</label>
+            <textarea
+              id="message"
+              [(ngModel)]="contactData().message"
+              placeholder="Your enquiry..."
+              rows="4"
+              class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green focus:ring-1 focus:ring-green resize-none"
+            ></textarea>
+          </div>
+
+          <div class="flex gap-3 pt-2">
+            <button
+              (click)="submitForm()"
+              class="flex-1 px-4 py-2 bg-green text-white rounded-md hover:opacity-80 transition-opacity"
+            >
+              Send
+            </button>
+            <button
+              (click)="toggleForm()"
+              class="flex-1 px-4 py-2 border border-green rounded-md hover:bg-gray-50 transition-colors"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+
+      }
+  
+    </div>
+  </div>
 </div>
 
 <div class="fixed h-9 bottom-0 w-full tartan opacity-80"></div>
