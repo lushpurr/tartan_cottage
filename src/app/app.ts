@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -19,13 +18,10 @@ export class App {
 
   showForm = signal(false);
 
-  submitForm(){
-    console.log('Form submitted:', this.contactData());
-    if(this.contactData().name && this.contactData().email && this.contactData().message) {
-      // Here you can add your form submission logic, e.g., sending the data to a server
-      console.log('Form data is valid. Proceeding with submission...');
-    } else {
-      console.log('Form data is invalid. Please fill in all fields.');
+  submitForm(form: NgForm){
+    if (form.invalid) {
+      form.control.markAllAsTouched();
+      return;
     }
 
     const formData = new FormData();
@@ -41,30 +37,28 @@ export class App {
     .then(res => res.json())
     .then(data => {
       console.log(data);
+
+    })
+    .catch(err => {
+      console.error(err);
+    })
+    .finally(() => {
+      this.toggleForm();
+      this.clearForm();
     });
   }
-
-//   onSubmit() {
-//   if (this.form.invalid) return;
-
-//   const formData = new FormData();
-
-//   formData.append('access_key', 'YOUR_ACCESS_KEY');
-//   formData.append('name', this.form.value.name);
-//   formData.append('email', this.form.value.email);
-//   formData.append('message', this.form.value.message);
-
-//   fetch('https://api.web3forms.com/submit', {
-//     method: 'POST',
-//     body: formData
-//   })
-//   .then(res => res.json())
-//   .then(data => {
-//     console.log(data);
-//   });
-// }
-
   toggleForm() {
     this.showForm.set(!this.showForm());
+    if (!this.showForm()) {
+      this.clearForm();
+    }
+  }
+
+  clearForm(){
+    this.contactData.set({
+      name: '',
+      email: '',
+      message: ''
+    });
   }
 }
