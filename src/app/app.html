@@ -1,6 +1,6 @@
 <div class="fixed h-9 top-0 w-full tartan opacity-80"></div>
 
-<div class="page-shell" [class.form-open]="showForm()">
+<div class="page-shell transition-[justify-content] duration-300 box-border ease-in-out flex flex-col items-center justify-center min-h-screen pt-8 pb-10" [class.justify-start]="showForm()">
   <div class="brand-panel" [class.enquiry-open]="showForm()">
     <div class="brand-inner">
       <img class="brand-logo" src="assets/logo.png" alt="Tartan Cottage Logo" />
@@ -17,7 +17,7 @@
 
       @if(showForm()){
             <div class="enquiry-card">
-        <div class="enquiry-body">
+        <form class="enquiry-body" #contactForm="ngForm" (ngSubmit)="submitForm(contactForm)" novalidate>
           <h3 class="text-xl font-semibold">Get in Touch</h3>
 
           <div class="flex flex-col gap-2">
@@ -25,7 +25,11 @@
             <input
               type="text"
               id="name"
+              name="name"
               [(ngModel)]="contactData().name"
+              #nameControl="ngModel"
+              required
+              [class.field-invalid]="nameControl.invalid && (nameControl.touched || contactForm.submitted)"
               placeholder="Your name"
               class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green focus:ring-1 focus:ring-green"
             />
@@ -37,16 +41,28 @@
               type="email"
               id="email"
               [(ngModel)]="contactData().email"
+              name="email"
+              #emailControl="ngModel"
+              required
+              email
+              [class.field-invalid]="emailControl.invalid && (emailControl.touched || contactForm.submitted)"
               placeholder="your@email.com"
               class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green focus:ring-1 focus:ring-green"
             />
+            @if (emailControl.invalid && (emailControl.touched || contactForm.submitted)) {
+              <p class="text-sm text-red-700" role="alert">Please enter a valid email address.</p>
+            }
           </div>
 
           <div class="flex flex-col gap-2">
             <label for="message" class="text-sm">Message</label>
             <textarea
               id="message"
+              name="message"
               [(ngModel)]="contactData().message"
+              #messageControl="ngModel"
+              required
+              [class.field-invalid]="messageControl.invalid && (messageControl.touched || contactForm.submitted)"
               placeholder="Your enquiry..."
               rows="4"
               class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green focus:ring-1 focus:ring-green resize-none"
@@ -55,19 +71,22 @@
 
           <div class="flex gap-3 pt-2">
             <button
-              (click)="submitForm()"
-              class="flex-1 px-4 py-2 bg-green text-white rounded-md hover:opacity-80 transition-opacity"
+              type="submit"
+              [disabled]="contactForm.invalid"
+              [class.send-button-disabled]="contactForm.invalid"
+              class="send-button flex-1 px-4 py-2 bg-green text-white rounded-md hover:opacity-80 transition-opacity"
             >
               Send
             </button>
             <button
+              type="button"
               (click)="toggleForm()"
               class="flex-1 px-4 py-2 border border-green rounded-md hover:bg-gray-50 transition-colors"
             >
               Cancel
             </button>
           </div>
-        </div>
+        </form>
       </div>
 
       }

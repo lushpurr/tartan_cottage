@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +18,12 @@ export class App {
 
   showForm = signal(false);
 
-  submitForm(){
+  submitForm(form: NgForm){
+    if (form.invalid) {
+      form.control.markAllAsTouched();
+      return;
+    }
+
     const formData = new FormData();
     formData.append('access_key', 'cad4e4cc-4129-47dc-a1c6-ceef769541db');
     formData.append('name', this.contactData().name);
